@@ -1,20 +1,22 @@
 import React from 'react';
 
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs } from 'antd';
 
 import MarketCapitalization from './MarketCapitalization';
 import RarityScore from './RarityScore';
 
+const { TabPane } = Tabs;
+
 const NFT = () => {
 	return (
 		<div>
-			<Tabs defaultActiveKey="market-cap" id="uncontrolled-tab-example" className="mb-3">
-				<Tab eventKey="market-cap" title="Market Cap">
+			<Tabs defaultActiveKey="market-cap">
+				<TabPane tab="Market Cap" key="market-cap">
 					<MarketCapitalization />
-				</Tab>
-				<Tab eventKey="rarity-score" title="Rarity Score">
+				</TabPane>
+				<TabPane tab="Rarity Score" key="impermanent-loss">
 					<RarityScore />
-				</Tab>
+				</TabPane>
 			</Tabs>
 		</div>
 	);

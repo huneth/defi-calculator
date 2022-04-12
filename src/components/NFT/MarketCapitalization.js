@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap';
+import React from 'react';
+import { Card, Col, Row, Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+
+import useCalculationInput from '../../hooks/useCalculationInput';
 
 const defaultValues = {
 	collectionSize: 10000,
@@ -8,53 +10,43 @@ const defaultValues = {
 }
 
 const MarketCapitalization = () => {
-	const [calculationInput, setCalculationInput] = useState(defaultValues);
 	const { control, watch } = useForm({ defaultValues });
 
-	useEffect(() => {
-    const subscription = watch((value, { name }) => {
-			setCalculationInput(preveCalculationInput => (
-				{ ...preveCalculationInput, [name]: value[name] }
-			));
-		});
-
-    return () => subscription.unsubscribe();
-  }, [watch]);
+	const { calculationInput } = useCalculationInput(defaultValues, watch);
 
 	return (
 		<div>
-			<Container fluid>
-				<Row className="justify-content-md-center">
-					<Col xs={4} >
-						<Form>
-							<Form.Group className="mb-3">
-								<Form.Label>Collection Size</Form.Label>
-								<Controller
-									name="collectionSize"
-									control={control}
-									render={({ field }) => <Form.Control type="number" placeholder="Enter number" {...field} />}
-								/>
-							</Form.Group>
-							<Form.Group className="mb-3">
-								<Form.Label>Floor Price $</Form.Label>
-								<Controller
-									name="floorPrice"
-									control={control}
-									render={({ field }) => <Form.Control type="number" placeholder="Enter number" {...field} />}
-								/>
-							</Form.Group>
-						</Form>
-					</Col>
-				</Row>
-				<Row className="justify-content-md-center">
-					<Card style={{ width: '18rem' }}>
-						<Card.Body>
-							<Card.Title>Min Market Cap (MC)</Card.Title>
-							<Card.Text>$ {(calculationInput.collectionSize * calculationInput.floorPrice).toFixed(2)}</Card.Text>
-						</Card.Body>
+			<Row>
+				<Col offset={8} span={8}>
+					<Form layout="vertical">
+						<Controller
+							name="collectionSize"
+							control={control}
+							render={({ field }) => (
+								<Form.Item label="Collection Size">
+									<Input placeholder="Enter number" type="number" {...field} />
+								</Form.Item>
+							)}
+						/>
+						<Controller
+							name="floorPrice"
+							control={control}
+							render={({ field }) => (
+								<Form.Item label="Floor Price $">
+									<Input placeholder="Enter number" type="number" {...field} />
+								</Form.Item>
+							)}
+						/>
+					</Form>
+				</Col>
+			</Row>
+			<Row>
+				<Col offset={8} span={8}>
+					<Card title="Market Cap (MC)" size="small">
+						$ {(calculationInput.collectionSize * calculationInput.floorPrice).toFixed(2)}
 					</Card>
-				</Row>
-			</Container>
+				</Col>
+			</Row>
 		</div>
 	);
 };

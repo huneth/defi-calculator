@@ -1,23 +1,25 @@
 import React from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs } from 'antd';
 
 import ImpermanentLoss from './ImpermanentLoss';
 import Staking from './Staking';
 import Tokenomics from './Tokenomics';
 
+const { TabPane } = Tabs;
+
 const DeFi = () => {
 	return (
 		<div>
-			<Tabs defaultActiveKey="tokenomics" id="uncontrolled-tab-example" className="mb-3">
-				<Tab eventKey="tokenomics" title="Tokenomics">
+			<Tabs defaultActiveKey="tokenomics">
+				<TabPane tab="Tokenomics" key="tokenomics">
 					<Tokenomics />
-				</Tab>
-				<Tab eventKey="staking" title="Staking">
+				</TabPane>
+				<TabPane tab="Staking" key="staking">
 					<Staking />
-				</Tab>
-				<Tab eventKey="impermanent-loss" title="Impermanent Loss">
-					<ImpermanentLoss />
-				</Tab>
+				</TabPane>
+				<TabPane tab="Impermanent Loss" key="impermanent-loss">
+				<ImpermanentLoss />
+				</TabPane>
 			</Tabs>
 		</div>
 	);

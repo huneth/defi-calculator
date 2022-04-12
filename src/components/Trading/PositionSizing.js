@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap';
+import React from 'react';
+import { Card, Col, Row, Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+
+import useCalculationInput from '../../hooks/useCalculationInput';
 
 const defaultValues = {
 	portfolioBalance: 10000,
@@ -9,69 +11,57 @@ const defaultValues = {
 }
 
 const PositionSizing = () => {
-	const [calculationInput, setCalculationInput] = useState(defaultValues);
 	const { control, watch } = useForm({ defaultValues });
 
-	useEffect(() => {
-    const subscription = watch((value, { name }) => {
-			setCalculationInput(preveCalculationInput => (
-				{ ...preveCalculationInput, [name]: value[name] }
-			));
-		});
-
-    return () => subscription.unsubscribe();
-  }, [watch]);
+	const { calculationInput } = useCalculationInput(defaultValues, watch);
 
 	const positionRisk = calculationInput.portfolioBalance * calculationInput.spreadRisk / 100;
 
 	return (
 		<div>
-			<Container fluid>
-				<Row className="justify-content-md-center">
-					<Col xs={4} >
-						<Form>
-							<Form.Group className="mb-3">
-								<Form.Label>Portfolio Balance $</Form.Label>
-								<Controller
-									name="portfolioBalance"
-									control={control}
-									render={({ field }) => <Form.Control type="number" placeholder="Enter number" {...field} />}
-								/>
-							</Form.Group>
-							<Form.Group className="mb-3">
-								<Form.Label>Spread Risk %</Form.Label>
-								<Controller
-									name="spreadRisk"
-									control={control}
-									render={({ field }) => <Form.Control type="number" placeholder="Enter number" {...field} />}
-								/>
-							</Form.Group>
-							<Card style={{ width: '18rem' }}>
-								<Card.Body>
-									<Card.Title>Position Risk $</Card.Title>
-									<Card.Text>$ {positionRisk.toFixed(2)}</Card.Text>
-								</Card.Body>
-							</Card>
-							<Form.Group className="mb-3">
-								<Form.Label>Stop Loss Distance %</Form.Label>
-								<Controller
-									name="stopLossDistance"
-									control={control}
-									render={({ field }) => <Form.Control type="number" placeholder="Enter number" {...field} />}
-								/>
-							</Form.Group>
-						</Form>
-					</Col>
-				</Row>
-				<Row className="justify-content-md-center">
-					<Card style={{ width: '18rem' }}>
-						<Card.Body>
-							<Card.Title>Position Size</Card.Title>
-							<Card.Text>$ {(positionRisk / (calculationInput.stopLossDistance / 100)).toFixed(2)}</Card.Text>
-						</Card.Body>
+			<Row>
+				<Col offset={8} span={8}>
+					<Form layout="vertical">
+						<Controller
+							name="portfolioBalance"
+							control={control}
+							render={({ field }) => (
+								<Form.Item label="Portfolio Balance $">
+									<Input type="number" placeholder="Enter number" {...field} />
+								</Form.Item>
+							)}
+						/>
+						<Controller
+							name="spreadRisk"
+							control={control}
+							render={({ field }) => (
+								<Form.Item label="Spread Risk %">
+									<Input type="number" placeholder="Enter number" {...field} />
+								</Form.Item>
+							)}
+						/>
+						<Card title="Position Risk $" size="small">
+							$ {positionRisk.toFixed(2)}
+						</Card>
+						<Controller
+							name="stopLossDistance"
+							control={control}
+							render={({ field }) => (
+								<Form.Item label="Stop Loss Distance %">
+									<Input type="number" placeholder="Enter number" {...field} />
+								</Form.Item>
+							)}
+						/>
+					</Form>
+				</Col>
+			</Row>
+			<Row>
+				<Col offset={8} span={8}>
+					<Card title="Position Size" size="small">
+						$ {(positionRisk / (calculationInput.stopLossDistance / 100)).toFixed(2)}
 					</Card>
-				</Row>
-			</Container>
+				</Col>
+			</Row>
 		</div>
 	);
 };

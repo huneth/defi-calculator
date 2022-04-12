@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs } from 'antd';
 
 import PositionSizing from './PositionSizing';
+
+const { TabPane } = Tabs;
 
 const Trading = () => {
 	return (
 		<div>
-			<Tabs defaultActiveKey="market-cap" id="uncontrolled-tab-example" className="mb-3">
-				<Tab eventKey="market-cap" title="Position Sizing">
+			<Tabs defaultActiveKey="position-sizing">
+				<TabPane tab="Position Sizing" key="position-sizing">
 					<PositionSizing />
-				</Tab>
-				<Tab eventKey="rarity-score" title="Rarity Score">
-				</Tab>
+				</TabPane>
 			</Tabs>
 		</div>
 	);
