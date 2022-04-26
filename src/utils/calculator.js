@@ -1,6 +1,5 @@
 const secondsInYear = 60 * 60 * 24 * 365;
 
-
 export const compoundsPerYear = (stakingFrequencySeconds) => Math.floor(secondsInYear / stakingFrequencySeconds);
 
 export const frequencySeconds = (frequencyDays, frequencyDaily) => frequencyDays / frequencyDaily * 24 * 60 * 60;
@@ -37,3 +36,38 @@ export const stakingAPR = (stakingFrequencySeconds, percentageAPY) => {
 export const profit = (principal, stakingFrequencySeconds, percentageAPR) => principal * stakingAPY(stakingFrequencySeconds, percentageAPR) / 100;
 
 export const totalValue = (principal, stakingFrequencySeconds, percentageAPR) => principal * (stakingAPY(stakingFrequencySeconds, percentageAPR) + 100) / 100;
+
+export const rarityScore = (traitSizes = [], collectionSize) => (
+	traitSizes.reduce((prevTraitScore, currentTraitSize) => {
+		const traitRarity = (currentTraitSize / collectionSize) * 100;
+		const traitScore = 100 / traitRarity;
+		return prevTraitScore + traitScore;
+	}, 0)
+);
+
+export const pool2Trade = (initialLiqudityValue, tokenPrice, orderSize, type = 'buy') => {
+	const x = (initialLiqudityValue / 2) / tokenPrice;
+	const y = (initialLiqudityValue / 2) / 1;
+
+	const k = x * y;
+
+	if (type === 'buy') {
+		const y2 = y + orderSize;
+		const x2 = k / y2;
+
+		return {
+			priceImpact: ((orderSize / (x - x2)) / (tokenPrice)) * 100 - 100,
+			pricePerToken: orderSize / (x - x2),
+			tokenChange: x - x2
+		}
+	} else {
+		const y2 = y - orderSize;
+		const x2 = k / y2;
+
+		return {
+			priceImpact: ((orderSize / (x2 - x)) / (tokenPrice)) * 100 - 100,
+			pricePerToken: orderSize / (x2 - x),
+			tokenChange: x2 - x
+		}
+	}
+};

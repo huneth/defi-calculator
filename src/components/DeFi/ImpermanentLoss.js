@@ -37,7 +37,7 @@ const ImpermanentLoss = () => {
 							name="principal"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Principal value in US">
+								<Form.Item label="Principal value $">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}
@@ -46,7 +46,7 @@ const ImpermanentLoss = () => {
 							name="startingPriceTokenA"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Starting Price Token A">
+								<Form.Item label="Starting Price Token A in $">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}
@@ -55,7 +55,7 @@ const ImpermanentLoss = () => {
 							name="startingPriceTokenB"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Starting Price Token B">
+								<Form.Item label="Starting Price Token B in $">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}
@@ -64,7 +64,7 @@ const ImpermanentLoss = () => {
 							name="endingPriceTokenA"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Ending Price Token A">
+								<Form.Item label="Ending Price Token A in $">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}
@@ -73,7 +73,7 @@ const ImpermanentLoss = () => {
 							name="endingPriceTokenB"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Ending Price Token B">
+								<Form.Item label="Ending Price Token B in $">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}

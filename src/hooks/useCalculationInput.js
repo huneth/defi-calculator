@@ -5,8 +5,9 @@ const useCalculationInput = (defaultValues, watch) => {
 
 	useEffect(() => {
     const subscription = watch((value, { name }) => {
+			const formattedValue = parseFloat(value[name]) || value[name];
 			setCalculationInput(preveCalculationInput => (
-				{ ...preveCalculationInput, [name]: value[name] }
+				{ ...preveCalculationInput, [name]: formattedValue }
 			));
 		});
     return () => subscription.unsubscribe();

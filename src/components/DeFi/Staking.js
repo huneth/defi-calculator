@@ -28,7 +28,7 @@ const Staking = () => {
 							name="principal"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Principal value in US">
+								<Form.Item label="Principal value $">
 									<Input type="number" placeholder="Enter number" {...field} />	
 								</Form.Item>
 							)}
@@ -37,7 +37,7 @@ const Staking = () => {
 							name="stakingFrequencyDays"
 							control={control}
 							render={({ field }) => (
-								<Form.Item label="Staking frequency in days">
+								<Form.Item label="Days between compounds">
 									<Input type="number" placeholder="Enter number" {...field} />
 								</Form.Item>
 							)}
@@ -47,7 +47,7 @@ const Staking = () => {
 								name="stakingFrequencyDaily"
 								control={control}
 								render={({ field }) => (
-									<Form.Item label="Staking frequency per day">
+									<Form.Item label="Number of compounds within a day (if compounded every single day)">
 										<Input type="number" placeholder="Enter number" {...field} />
 									</Form.Item>
 								)}

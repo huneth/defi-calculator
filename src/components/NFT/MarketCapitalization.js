@@ -43,7 +43,7 @@ const MarketCapitalization = () => {
 			<Row>
 				<Col offset={8} span={8}>
 					<Card title="Market Cap (MC)" size="small">
-						$ {(calculationInput.collectionSize * calculationInput.floorPrice).toFixed(2)}
+						$ {(calculationInput.collectionSize * calculationInput.floorPrice).toLocaleString('en-US',  {maximumFractionDigits: 2 })}
 					</Card>
 				</Col>
 			</Row>

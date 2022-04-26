@@ -4,6 +4,7 @@ import { Tabs } from 'antd';
 import ImpermanentLoss from './ImpermanentLoss';
 import Staking from './Staking';
 import Tokenomics from './Tokenomics';
+import Pool2Trade from './Pool2Trade';
 
 const { TabPane } = Tabs;
 
@@ -18,7 +19,10 @@ const DeFi = () => {
 					<Staking />
 				</TabPane>
 				<TabPane tab="Impermanent Loss" key="impermanent-loss">
-				<ImpermanentLoss />
+					<ImpermanentLoss />
+				</TabPane>
+				<TabPane tab="Pool2 Trade" key="pool-2-trade">
+					<Pool2Trade />
 				</TabPane>
 			</Tabs>
 		</div>
